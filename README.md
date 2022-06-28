@@ -21,7 +21,7 @@ Set the **Directory** to the template for the folder.
 
 Set the **File Name** to the template for the file name.
 
-- Note: The file name generation has a quirk where you _must_ have a frame number somewhere in the filename. If you don't, Blender will add at to the end. This is built-in behaviour and cannot be changed.
+- Note: The file name generation has a quirk where you _must_ have a frame number somewhere in the filename. If you don't, Blender will add it to the end. This is built-in behaviour and cannot be changed.
 
 The above options can contain a number of template variables to alter the path / filename. 
 

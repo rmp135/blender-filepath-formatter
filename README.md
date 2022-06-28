@@ -6,7 +6,7 @@ Blender addon to specify a filepath template for renders and output nodes.
 
 - Click [here to download](https://github.com/rmp135/blender-filepath-formatter/archive/main.zip).
 - Open Blender
-  - Edit -> Preferences -> Install... and select the downloaded zip file.
+  - Edit -> Preferences -> Add-ons -> Install... and select the downloaded zip file.
   - Tick the box to enable.
 
 ## Usage

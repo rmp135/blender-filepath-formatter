@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Filepath Formatter",
     "author": "Ryan Poole",
-    "version": (1, 0, 0),
+    "version": (1, 1, 0),
     "blender": (2, 80, 0),
     "location": "Output Properties > Filepath Formatter",
     "description": "Sets the format for ouput renders.",
@@ -14,26 +14,27 @@ from bpy.app.handlers import persistent
 
 @persistent
 def update_filepath(self):
-    if not bpy.context.scene.filepath_formatter_settings.use_filepath_formatter:
+    settings = bpy.context.scene.filepath_formatter_settings
+    if not settings.use_filepath_formatter:
         return
-    directory = replace_tokens(bpy.context.scene.filepath_formatter_settings.directory)
-    filename = replace_tokens(bpy.context.scene.filepath_formatter_settings.filename)
-    bpy.context.scene.render.filepath = directory + '\\' + filename
+    bpy.context.scene.render.filepath = replace_tokens(settings.directory, '') + '\\' + replace_tokens(settings.filename, '')
     if bpy.context.scene.use_nodes:
         for node in bpy.context.scene.node_tree.nodes:
             if node.type == "OUTPUT_FILE":
-                node.base_path = directory
+                node.base_path = replace_tokens(settings.directory, node.label)
                 for slot in node.file_slots:
-                    slot.path = filename
+                    slot.path = replace_tokens(settings.filename, node.label)
 
-def replace_tokens(base_path):
+def replace_tokens(base_path, label):
     base_path = base_path \
         .replace('%resx', str(bpy.context.scene.render.resolution_x)) \
         .replace('%resy', str(bpy.context.scene.render.resolution_y)) \
         .replace('%scene', bpy.context.scene.name) \
         .replace('%camera', bpy.context.scene.camera.name) \
-        .replace('%filename', bpy.path.basename(bpy.context.blend_data.filepath).replace('.blend', ''))
+        .replace('%filename', bpy.path.basename(bpy.context.blend_data.filepath).replace('.blend', '')) \
+        .replace('%label', label)
     now = datetime.datetime.now()
+    print(base_path)
     base_path = now.strftime(base_path)
     return base_path
 

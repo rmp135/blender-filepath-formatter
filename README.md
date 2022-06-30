@@ -34,6 +34,7 @@ Variable      | Expansion
 %scene        | Active scene name
 %camera       | Active camera name
 %filename     | Project file name
+%label        | File Output node label
 \#\#\#\#\#    | Frame number with padding
 
 All datetime variables from the [strftime](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes) function in Python.
